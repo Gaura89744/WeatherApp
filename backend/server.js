@@ -26,7 +26,7 @@ app.get("/api/weather",async (req,res)=>{
 
 //City suggestions
 app.get("/api/city-suggestions", async (req, res) => {
-  const query = req.query.name; // ✅ fixed here
+  const query = req.query.name; 
   if (!query)
     return res.status(400).json({ error: "City name prefix is required" });
 
