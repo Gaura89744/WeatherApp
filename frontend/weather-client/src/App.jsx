@@ -15,6 +15,8 @@ function App() {
     switch (weatherMain.toLowerCase()) {
       case "clear":
         return "/icons/clear.png";
+      case "overcast clouds":
+        return "/icons/clo.png";
       case "clouds":
         return "/icons/cloudy.png";
       case "rain":
