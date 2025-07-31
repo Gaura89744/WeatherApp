@@ -10,8 +10,6 @@ function App() {
 
   const baseURL = import.meta.env.VITE_API_BASE_URL;
 
-  const cityURL = import.meta.env.CITY_API_BASE_URL;
-
   const getWeatherIcon = (weatherMain) => {
     switch (weatherMain.toLowerCase()) {
       case "clear":
@@ -29,7 +27,9 @@ function App() {
     if (!query) return;
 
     try {
-      const res = await fetch(`${cityURL}/api/city-suggestions?name=${query}`);
+      const res = await fetch(
+        `https://weatherapp-5wyp.onrender.com/api/city-suggestions?name=${query}`
+      );
 
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);
