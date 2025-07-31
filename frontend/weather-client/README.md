@@ -30,3 +30,21 @@ A clean and user-friendly weather forecast app that shows live weather details f
 
 3. Create `.env` in backend:
 
+4. Run server  
+`npm run dev`
+
+5. Open `index.html` from frontend in browser
+
+## ⚙️ Architecture
+
+Frontend collects user input and shows results. Backend fetches secure weather data from third-party APIs and hides the API keys using a proxy.
+
+## 💡 Challenges Faced
+
+- Protected API keys using backend instead of frontend
+- Handled detailed weather conditions like "overcast clouds"
+- Linked icons visually to multiple weather descriptions
+
+---
+
+> Made with ❤️ by Gaurav
