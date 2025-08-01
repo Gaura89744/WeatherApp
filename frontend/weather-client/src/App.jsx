@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,19 +55,23 @@ function App() {
   const getWeather = async () => {
     if (!city) return setError("Please enter a city name.");
     setLoading(true);
+    setError(null)
     try {
       const res = await fetch(`${baseURL}/api/weather?city=${city}`);
       const data = await res.json();
-      if (data.cod === 404) {
-        setError("City not found");
-        setWeatherData(null);
-      } else {
-        setWeatherData(data);
-        setError("");
-      }
+       if (!res.ok || !data || data.cod === "404" || !data.weather) {
+         setWeatherData(null);
+         setError(
+           "Weather data not available for this city. It may not be supported by the API."
+         );
+       } else {
+         setWeatherData(data);
+         setError("");
+       }
     } catch (error) {
       console.error("Error fetching weather:", error);
       setError("Failed to fetch weather data");
+      setWeatherData(null);
     } finally {
       setLoading(false);
     }
@@ -119,7 +123,21 @@ function App() {
             Find
           </button>
         </div>
-        {error && <p className="text-red-400 font-semibold">{error}</p>}
+        {error && <p className="text-blue-950 font-semibold">{error}</p>}
+        {loading && (
+          <div className="text-blue-950 font-semibold mt-4">
+            <div>
+              <p>Waking up server, please wait...</p>
+              <p className="text-sm text-red-950">
+                If it takes too long, try refreshing the page...
+              </p>
+            </div>
+        <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-b-4 border-black ml-44 mt-6"></div>
+        
+          </div>
+        )}
+        
+
         {weatherData && weatherData.sys && (
           <div className="mt-6 grid grid-cols-2 gap-3">
             <div className="bg-white p-4 rounded shadow text-sm text-blue-600 col-span-2 flex flex-col items-center font-bold">
